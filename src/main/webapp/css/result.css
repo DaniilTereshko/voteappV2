@@ -1,0 +1,42 @@
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+table th {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  width: 33%;
+}
+
+table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  width: 33%;
+}
+.btn-vote {
+position: absolute;
+top: 0;
+right: 0;
+padding: 10px;
+font-size: 16px;
+font-weight: bold;
+color: #fff;
+background-color: #3498db;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
