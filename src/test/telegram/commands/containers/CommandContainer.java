@@ -5,7 +5,6 @@ import org.example.controllers.telegram.commands.classes.ArtistCommand;
 import org.example.controllers.telegram.commands.classes.ArtistsCommand;
 import org.example.controllers.telegram.commands.enums.CommandName;
 import org.example.controllers.telegram.services.api.SendBotMessageService;
-import org.example.services.factory.ArtistServiceFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +14,8 @@ public class CommandContainer {
 
     public CommandContainer(SendBotMessageService sendBotMessageService) {
         commands = new HashMap<>();
-        commands.put(CommandName.ARTISTS.getCommandName(), new ArtistsCommand(sendBotMessageService, ArtistServiceFactory.getInstance()));
-        commands.put(CommandName.ARTIST.getCommandName(), new ArtistCommand(sendBotMessageService, ArtistServiceFactory.getInstance()));
+        //commands.put(CommandName.ARTISTS.getCommandName(), new ArtistsCommand(sendBotMessageService, ArtistServiceFactory.getInstance()));
+        //commands.put(CommandName.ARTIST.getCommandName(), new ArtistCommand(sendBotMessageService, ArtistServiceFactory.getInstance()));
     }
 
     public TelegramCommand retrieveCommand(String commandIdentifier) {

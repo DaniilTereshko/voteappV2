@@ -5,15 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.controllers.telegram.Bot;
 import org.example.core.dto.VoteCreatorDTO;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
 import org.example.controllers.factory.ApplicationContextFactory;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -33,13 +30,6 @@ public class VoteServlet extends HttpServlet {
         this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);;
         this.genreService = ApplicationContextFactory.getInstance().getBean(IGenreService.class);
         this.voteService = ApplicationContextFactory.getInstance().getBean(IVoteService.class);
-        TelegramBotsApi botsApi = null;
-        try {
-            botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(Bot.getInstance());
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
