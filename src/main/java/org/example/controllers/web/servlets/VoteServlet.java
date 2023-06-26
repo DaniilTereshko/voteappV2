@@ -10,9 +10,7 @@ import org.example.core.dto.VoteCreatorDTO;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
-import org.example.services.factory.ArtistServiceFactory;
-import org.example.services.factory.GenreServiceFactory;
-import org.example.services.factory.VoteServiceFactory;
+import org.example.controllers.factory.ApplicationContextFactory;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -32,9 +30,9 @@ public class VoteServlet extends HttpServlet {
     private IVoteService voteService;
 
     public VoteServlet() {
-        this.artistService = ArtistServiceFactory.getInstance();
-        this.genreService = GenreServiceFactory.getInstance();
-        this.voteService = VoteServiceFactory.getInstance();
+        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);;
+        this.genreService = ApplicationContextFactory.getInstance().getBean(IGenreService.class);
+        this.voteService = ApplicationContextFactory.getInstance().getBean(IVoteService.class);
         TelegramBotsApi botsApi = null;
         try {
             botsApi = new TelegramBotsApi(DefaultBotSession.class);

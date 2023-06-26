@@ -1,6 +1,7 @@
 package org.example.dao.classes.db.hibernate.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -13,9 +14,17 @@ import org.example.dao.classes.db.hibernate.entities.VoteEntity;
 import java.util.List;
 
 public class VoteHibernateDao implements IVoteHibernateDao {
+    private EntityManagerFactory emf;
+
+    public VoteHibernateDao() {
+    }
+
+    public VoteHibernateDao(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     @Override
     public List<VoteEntity> get() {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -30,7 +39,7 @@ public class VoteHibernateDao implements IVoteHibernateDao {
 
     @Override
     public VoteEntity get(long id) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         VoteEntity voteEntity = entityManager.find(VoteEntity.class, id);
@@ -41,7 +50,7 @@ public class VoteHibernateDao implements IVoteHibernateDao {
 
     @Override
     public VoteEntity save(VoteEntity item) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.merge(item);//TODO разобраться с merge

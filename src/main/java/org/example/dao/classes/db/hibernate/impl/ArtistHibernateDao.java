@@ -1,7 +1,9 @@
 package org.example.dao.classes.db.hibernate.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -13,9 +15,19 @@ import org.example.dao.classes.db.hibernate.entities.ArtistEntity;
 import java.util.List;
 
 public class ArtistHibernateDao implements IArtistHibernateDao {
+    private EntityManagerFactory emf;
+
+    public ArtistHibernateDao() {
+
+    }
+
+    public ArtistHibernateDao(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
     @Override
     public List<ArtistEntity> get() {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -30,7 +42,7 @@ public class ArtistHibernateDao implements IArtistHibernateDao {
 
     @Override
     public ArtistEntity get(long id) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         ArtistEntity artistEntity = entityManager.find(ArtistEntity.class, id);
@@ -41,7 +53,7 @@ public class ArtistHibernateDao implements IArtistHibernateDao {
 
     @Override
     public ArtistEntity save(ArtistEntity item) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(item);

@@ -12,9 +12,7 @@ import org.example.core.dto.VoteDTO;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteStatisticService;
-import org.example.services.factory.ArtistServiceFactory;
-import org.example.services.factory.GenreServiceFactory;
-import org.example.services.factory.VoteStatisticServiceFactory;
+import org.example.controllers.factory.ApplicationContextFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,9 +26,9 @@ public class VoteResultsServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        this.artistService = ArtistServiceFactory.getInstance();
-        this.genreService = GenreServiceFactory.getInstance();
-        this.voteStatisticService = VoteStatisticServiceFactory.getInstance();
+        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);;
+        this.genreService =ApplicationContextFactory.getInstance().getBean(IGenreService.class);
+        this.voteStatisticService = ApplicationContextFactory.getInstance().getBean(IVoteStatisticService.class);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

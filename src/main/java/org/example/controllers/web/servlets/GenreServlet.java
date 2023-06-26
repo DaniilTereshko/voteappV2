@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.core.dto.GenreCreateDTO;
 import org.example.core.dto.GenreDTO;
 import org.example.services.api.IGenreService;
-import org.example.services.factory.GenreServiceFactory;
+import org.example.controllers.factory.ApplicationContextFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +23,7 @@ public class GenreServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.genreService = GenreServiceFactory.getInstance();
+        this.genreService = ApplicationContextFactory.getInstance().getBean(IGenreService.class);;
         this.objectMapper = new ObjectMapper();
     }
 

@@ -6,7 +6,7 @@ import org.example.dao.classes.db.hibernate.impl.VoteHibernateDao;
 import org.example.dao.classes.db.jdbc.VoteJdbcDao;
 
 public class VoteDaoFactory {
-    private static IVoteHibernateDao voteDao = null;
+    private static volatile IVoteHibernateDao voteDao = null;
 
     private VoteDaoFactory() {
     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="voteapp"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <!--<property name="persistenceXmlLocation" value=""/>-->
+    </bean>
+    <bean id="artistService" class="org.example.services.classes.ArtistService">
+        <constructor-arg ref="artistDao"/>
+    </bean>
+    <bean id="genreService" class="org.example.services.classes.GenreService">
+        <constructor-arg ref="genreDao"/>
+    </bean>
+    <bean id="voteService" class="org.example.services.classes.VoteService">
+        <constructor-arg ref="voteDao"/>
+        <constructor-arg ref="artistService"/>
+        <constructor-arg ref="genreService"/>
+    </bean>
+    <bean id="voteStatisticService" class="org.example.services.classes.VoteStatisticService">
+        <constructor-arg ref="voteService"/>
+        <constructor-arg ref="genreService"/>
+        <constructor-arg ref="artistService"/>
+    </bean>
+    <bean id="artistDao" class="org.example.dao.classes.db.hibernate.impl.ArtistHibernateDao">
+        <constructor-arg ref="emf"/>
+    </bean>
+    <bean id="genreDao" class="org.example.dao.classes.db.hibernate.impl.GenreHibernateDao">
+        <constructor-arg ref="emf"/>
+    </bean>
+    <bean id="voteDao" class="org.example.dao.classes.db.hibernate.impl.VoteHibernateDao">
+        <constructor-arg ref="emf"/>
+    </bean>
+</beans>

@@ -12,7 +12,6 @@ C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\api\IVo
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\core\dto\ArtistCreateDTO.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\classes\ArtistService.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\core\dto\GenreDTO.java
-C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\controllers\web\listeners\EntityManagerFactoryListener.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\dao\api\IVoteDao.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\classes\VoteService.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\dao\classes\db\hibernate\impl\VoteHibernateDao.java
@@ -51,6 +50,7 @@ C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\core\dto\Statist
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\factory\VoteStatisticServiceFactory.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\classes\GenreService.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\core\dto\GenreCreateDTO.java
+C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\services\factory\ApplicationContextFactory.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\dao\classes\memory\VoteMemoryDao.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\dao\api\IGenreDao.java
 C:\Users\danii\IdeaProjects\voteappV2\src\main\java\org\example\dao\classes\db\ds\HibernateUtil.java

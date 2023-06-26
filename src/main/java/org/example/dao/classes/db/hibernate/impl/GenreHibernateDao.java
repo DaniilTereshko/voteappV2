@@ -1,6 +1,7 @@
 package org.example.dao.classes.db.hibernate.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -12,9 +13,17 @@ import org.example.dao.classes.db.hibernate.entities.GenreEntity;
 import java.util.List;
 
 public class GenreHibernateDao implements IGenreHibernateDao {
+    private EntityManagerFactory emf;
+
+    public GenreHibernateDao() {
+    }
+
+    public GenreHibernateDao(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     @Override
     public List<GenreEntity> get() {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -29,7 +38,7 @@ public class GenreHibernateDao implements IGenreHibernateDao {
 
     @Override
     public GenreEntity get(long id) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         GenreEntity genreEntity = entityManager.find(GenreEntity.class, id);
@@ -40,7 +49,7 @@ public class GenreHibernateDao implements IGenreHibernateDao {
 
     @Override
     public GenreEntity save(GenreEntity item) {
-        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(item);

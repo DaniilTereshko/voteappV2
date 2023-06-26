@@ -51,9 +51,9 @@ org\example\controllers\telegram\commands\containers\CommandContainer.class
 org\example\core\dto\GenreCreateDTO.class
 org\example\controllers\telegram\commands\enums\CommandName.class
 org\example\dao\classes\memory\GenreMemoryDao.class
-org\example\controllers\web\listeners\EntityManagerFactoryListener.class
 org\example\dao\classes\db\hibernate\impl\ArtistHibernateDao.class
 org\example\controllers\web\servlets\GenreServlet.class
 org\example\dao\classes\memory\ArtistMemoryDao.class
+org\example\services\factory\ApplicationContextFactory.class
 org\example\dao\api\IGenreDao.class
 org\example\dao\classes\db\hibernate\entities\ArtistEntity.class

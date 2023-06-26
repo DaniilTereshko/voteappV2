@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.core.dto.ArtistDTO;
 import org.example.services.api.IArtistService;
-import org.example.services.factory.ArtistServiceFactory;
+import org.example.controllers.factory.ApplicationContextFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ public class ArtistServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.artistService = ArtistServiceFactory.getInstance();
+        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);
     }
 
     @Override
