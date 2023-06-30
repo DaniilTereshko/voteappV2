@@ -23,7 +23,7 @@ public class GenreServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.genreService = ApplicationContextFactory.getInstance().getBean(IGenreService.class);;
+        this.genreService = ApplicationContextFactory.getInstance().getGenreService();
         this.objectMapper = new ObjectMapper();
     }
 

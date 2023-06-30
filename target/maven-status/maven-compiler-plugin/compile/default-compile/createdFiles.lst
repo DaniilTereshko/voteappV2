@@ -5,6 +5,7 @@ org\example\dao\classes\memory\VoteMemoryDao.class
 org\example\controllers\web\filters\EncodingFilter.class
 org\example\core\dto\GenreDTO.class
 org\example\dao\classes\db\hibernate\entities\VoteEntity.class
+org\example\controllers\factory\IApplicationContextBean.class
 org\example\controllers\web\servlets\VoteResultsServlet.class
 org\example\controllers\web\servlets\VoteServlet.class
 org\example\core\dto\VoteCreatorDTO.class
@@ -21,7 +22,6 @@ org\example\controllers\factory\ApplicationContextFactory.class
 org\example\core\dto\VoteDTO.class
 org\example\dao\api\IArtistHibernateDao.class
 org\example\services\classes\ArtistService.class
-org\example\dao\api\IVoteDao.class
 org\example\dao\classes\db\hibernate\entities\GenreEntity.class
 org\example\dao\classes\db\hibernate\impl\GenreHibernateDao.class
 org\example\core\dto\GenreCreateDTO.class
@@ -30,9 +30,8 @@ org\example\services\api\IVoteStatisticService.class
 org\example\dao\classes\db\hibernate\impl\ArtistHibernateDao.class
 org\example\controllers\web\servlets\GenreServlet.class
 org\example\dao\classes\memory\ArtistMemoryDao.class
-org\example\dao\api\IGenreDao.class
+org\example\controllers\factory\ApplicationContextBean.class
 org\example\dao\classes\db\hibernate\entities\ArtistEntity.class
 org\example\services\api\IGenreService.class
 org\example\services\classes\VoteStatisticService.class
-org\example\dao\api\IArtistDao.class
 org\example\services\api\IArtistService.class

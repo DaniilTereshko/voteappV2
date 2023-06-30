@@ -4,13 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="voteapp"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-        </property>
-        <!--<property name="persistenceXmlLocation" value=""/>-->
+    <bean id="emf" class="jakarta.persistence.Persistence" factory-method="createEntityManagerFactory">
+        <constructor-arg value="voteapp"/>
     </bean>
+
     <bean id="artistService" class="org.example.services.classes.ArtistService">
         <constructor-arg ref="artistDao"/>
     </bean>

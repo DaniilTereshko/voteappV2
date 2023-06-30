@@ -26,9 +26,9 @@ public class VoteResultsServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);;
-        this.genreService =ApplicationContextFactory.getInstance().getBean(IGenreService.class);
-        this.voteStatisticService = ApplicationContextFactory.getInstance().getBean(IVoteStatisticService.class);
+        this.artistService = ApplicationContextFactory.getInstance().getArtistService();
+        this.genreService =ApplicationContextFactory.getInstance().getGenreService();
+        this.voteStatisticService = ApplicationContextFactory.getInstance().getVoteStatisticService();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,12 +1,12 @@
 package org.example.dao.classes.memory;
 
 import org.example.core.dto.ArtistDTO;
-import org.example.dao.api.IArtistDao;
+import org.example.dao.api.ICRUDDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistMemoryDao implements IArtistDao {
+public class ArtistMemoryDao implements ICRUDDao<ArtistDTO> {
     private final List<ArtistDTO> artists = new ArrayList<>();
 
     public ArtistMemoryDao() {

@@ -27,9 +27,9 @@ public class VoteServlet extends HttpServlet {
     private IVoteService voteService;
 
     public VoteServlet() {
-        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);;
-        this.genreService = ApplicationContextFactory.getInstance().getBean(IGenreService.class);
-        this.voteService = ApplicationContextFactory.getInstance().getBean(IVoteService.class);
+        this.artistService = ApplicationContextFactory.getInstance().getArtistService();
+        this.genreService = ApplicationContextFactory.getInstance().getGenreService();
+        this.voteService = ApplicationContextFactory.getInstance().getVoteService();
 
     }
 
