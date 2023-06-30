@@ -1,14 +1,14 @@
 package org.example.dao.classes.memory;
 
 import org.example.core.dto.GenreDTO;
-import org.example.dao.api.IGenreDao;
+import org.example.dao.api.ICRUDDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GenreMemoryDao implements IGenreDao {
+public class GenreMemoryDao implements ICRUDDao<GenreDTO> {
     private final Map<Long, GenreDTO> genres = new HashMap<>();
 
 

@@ -20,7 +20,7 @@ public class ArtistServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.artistService = ApplicationContextFactory.getInstance().getBean(IArtistService.class);
+        this.artistService = ApplicationContextFactory.getInstance().getArtistService();
     }
 
     @Override

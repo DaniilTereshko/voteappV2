@@ -1,12 +1,12 @@
 package org.example.dao.classes.memory;
 
 import org.example.core.dto.VoteDTO;
-import org.example.dao.api.IVoteDao;
+import org.example.dao.api.ICRUDDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteMemoryDao implements IVoteDao {
+public class VoteMemoryDao implements ICRUDDao<VoteDTO> {
     private final List<VoteDTO> votes = new ArrayList<>();
     @Override
     public List<VoteDTO> get() {

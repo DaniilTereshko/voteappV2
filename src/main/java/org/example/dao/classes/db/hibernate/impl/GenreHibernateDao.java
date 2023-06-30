@@ -7,7 +7,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.example.dao.api.IGenreHibernateDao;
-import org.example.dao.classes.db.ds.HibernateUtil;
 import org.example.dao.classes.db.hibernate.entities.GenreEntity;
 
 import java.util.List;
