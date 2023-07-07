@@ -4,10 +4,10 @@ import org.example.core.dto.ArtistDTO;
 import org.example.core.dto.GenreDTO;
 import org.example.core.dto.VoteCreatorDTO;
 import org.example.core.dto.VoteDTO;
-import org.example.dao.api.IVoteHibernateDao;
-import org.example.dao.classes.db.hibernate.entities.ArtistEntity;
-import org.example.dao.classes.db.hibernate.entities.GenreEntity;
-import org.example.dao.classes.db.hibernate.entities.VoteEntity;
+import org.example.dao.repositories.IVoteRepository;
+import org.example.dao.entities.Artist;
+import org.example.dao.entities.Genre;
+import org.example.dao.entities.Vote;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Set;
 
 public class VoteService implements IVoteService {
-    private final IVoteHibernateDao voteDao;
+    private final IVoteRepository voteDao;
     private final IArtistService artistService;
     private final IGenreService genreService;
 
-    public VoteService(IVoteHibernateDao voteDao, IArtistService artistService, IGenreService genreService) {
+    public VoteService(IVoteRepository voteDao, IArtistService artistService, IGenreService genreService) {
         this.voteDao = voteDao;
         this.artistService = artistService;
         this.genreService = genreService;
@@ -31,9 +31,9 @@ public class VoteService implements IVoteService {
 
     @Override
     public List<VoteDTO> get() {
-        List<VoteEntity> voteEntities = voteDao.get();
+        List<Vote> voteEntities = voteDao.findAll();
         List<VoteDTO> votes = new ArrayList<>();
-        for(VoteEntity v:voteEntities){
+        for(Vote v:voteEntities){
             votes.add(entityToDto(v));
         }
         return votes;
@@ -41,7 +41,7 @@ public class VoteService implements IVoteService {
 
     @Override
     public VoteDTO get(long id) {
-        VoteEntity v = voteDao.get(id);
+        Vote v = voteDao.findById(id).get();
         return entityToDto(v);
     }
 
@@ -49,9 +49,9 @@ public class VoteService implements IVoteService {
     public VoteDTO save(VoteCreatorDTO item) {
         validate(item);
         VoteDTO voteDTO = new VoteDTO(item.getArtist(), item.getGenres(), item.getAbout(), LocalDateTime.now());
-        VoteEntity voteEntity = dtoToEntity(voteDTO);
-        voteDao.save(voteEntity);
-        return entityToDto(voteEntity);
+        Vote vote = dtoToEntity(voteDTO);
+        voteDao.save(vote);
+        return entityToDto(vote);
     }
     private void validate(VoteCreatorDTO voteCreatorDTO){
         Set<Long> genres = voteCreatorDTO.getGenres();
@@ -59,22 +59,22 @@ public class VoteService implements IVoteService {
             throw new IllegalArgumentException("Количество выбранных жанров должно быть от 3 до 5");
         }
     }
-    private VoteEntity dtoToEntity(VoteDTO voteDTO){
+    private Vote dtoToEntity(VoteDTO voteDTO){
         ArtistDTO artistDTO = artistService.get(voteDTO.getArtist());
-        ArtistEntity artistEntity = new ArtistEntity(artistDTO.getId(), artistDTO.getName());
-        Set<GenreEntity> genreEntities = new HashSet<>();
+        Artist artist = new Artist(artistDTO.getId(), artistDTO.getName());
+        Set<Genre> genreEntities = new HashSet<>();
         for(Long i:voteDTO.getGenres()){
             GenreDTO genreDTO = genreService.get(i);
-            GenreEntity genreEntity = new GenreEntity(genreDTO.getId(),genreDTO.getName());
-            genreEntities.add(genreEntity);
+            Genre genre = new Genre(genreDTO.getId(),genreDTO.getName());
+            genreEntities.add(genre);
         }
-        return new VoteEntity(voteDTO.getId(), voteDTO.getAbout(), voteDTO.getDate(), genreEntities, artistEntity);
+        return new Vote(voteDTO.getId(), voteDTO.getAbout(), voteDTO.getDate(), genreEntities, artist);
     }
-    private VoteDTO entityToDto(VoteEntity voteEntity) {
+    private VoteDTO entityToDto(Vote vote) {
         Set<Long> genres = new HashSet<>();
-        for(GenreEntity g: voteEntity.getGenres()){
+        for(Genre g: vote.getGenres()){
             genres.add(g.getId());
         }
-        return new VoteDTO(voteEntity.getId(), voteEntity.getArtist().getId(), genres, voteEntity.getText(), voteEntity.getDate());
+        return new VoteDTO(vote.getId(), vote.getArtist().getId(), genres, vote.getText(), vote.getDate());
     }
 }

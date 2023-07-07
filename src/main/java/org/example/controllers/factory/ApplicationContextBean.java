@@ -1,17 +1,18 @@
 package org.example.controllers.factory;
 
+import org.example.configuration.AppConfig;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
 import org.example.services.api.IVoteStatisticService;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationContextBean implements IApplicationContextBean{
     private ApplicationContext context;
 
     public ApplicationContextBean() {
-        this.context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.context = new AnnotationConfigApplicationContext(AppConfig.class);
     }
 
     @Override

@@ -11,7 +11,6 @@ public class ApplicationContextFactory {
             synchronized (ApplicationContextFactory.class){
                 if(applicationContext == null){
                     applicationContext = new ApplicationContextBean();
-
                 }
             }
         }
