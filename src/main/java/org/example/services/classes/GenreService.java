@@ -7,7 +7,9 @@ import org.example.dao.entities.Genre;
 import org.example.services.api.IGenreService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class GenreService implements IGenreService {
     private final IGenreRepository genreDao;
@@ -40,10 +42,15 @@ public class GenreService implements IGenreService {
         Genre savedEntity = genreDao.save(genre);
         return entityToDto(savedEntity);
     }
+    @Override
+    public Set<Genre> findByIdIn(Collection<Long> id) {
+        return genreDao.findByIdIn(id);
+    }
     private Genre dtoToEntity(GenreDTO genreDTO){
         return new Genre(genreDTO.getId(), genreDTO.getName());
     }
     private GenreDTO entityToDto(Genre genre) {
         return new GenreDTO(genre.getId(), genre.getName());
     }
+
 }

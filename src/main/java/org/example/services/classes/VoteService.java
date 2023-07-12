@@ -62,13 +62,8 @@ public class VoteService implements IVoteService {
     private Vote dtoToEntity(VoteDTO voteDTO){
         ArtistDTO artistDTO = artistService.get(voteDTO.getArtist());
         Artist artist = new Artist(artistDTO.getId(), artistDTO.getName());
-        Set<Genre> genreEntities = new HashSet<>();
-        for(Long i:voteDTO.getGenres()){
-            GenreDTO genreDTO = genreService.get(i);
-            Genre genre = new Genre(genreDTO.getId(),genreDTO.getName());
-            genreEntities.add(genre);
-        }
-        return new Vote(voteDTO.getId(), voteDTO.getAbout(), voteDTO.getDate(), genreEntities, artist);
+        Set<Genre> genres = genreService.findByIdIn(voteDTO.getGenres());
+        return new Vote(voteDTO.getId(), voteDTO.getAbout(), voteDTO.getDate(), genres, artist);
     }
     private VoteDTO entityToDto(Vote vote) {
         Set<Long> genres = new HashSet<>();

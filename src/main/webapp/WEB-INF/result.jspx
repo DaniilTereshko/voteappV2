@@ -4,65 +4,65 @@
       version="2.0"
 >
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
-<head>
-    <meta charset="UTF-8"/>
-    <title>Hello World</title>
-    <link rel="stylesheet" href="css/result.css"/>
-</head>
-<body>
-    <h1>Top Artists by Votes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Votes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="artist" items="${artists.entrySet()}">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Results</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/result.css"/>
+    </head>
+    <body>
+        <h1>Top Artists by Votes</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td>${artist.getKey().getName()}</td>
-                    <td>${artist.getValue()}</td>
+                    <th>Name</th>
+                    <th>Votes</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <h1>Top Genres by Votes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Genre</th>
-                <th>Votes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="genre" items="${genres.entrySet()}">
+            </thead>
+            <tbody>
+                <c:forEach var="artist" items="${artists.entrySet()}">
+                    <tr>
+                        <td>${artist.getKey().getName()}</td>
+                        <td>${artist.getValue()}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <h1>Top Genres by Votes</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td>${genre.getKey().getName()}</td>
-                    <td>${genre.getValue()}</td>
+                    <th>Genre</th>
+                    <th>Votes</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <h1>Top Description by Date</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="t" items="${abouts}">
+            </thead>
+            <tbody>
+                <c:forEach var="genre" items="${genres.entrySet()}">
+                    <tr>
+                        <td>${genre.getKey().getName()}</td>
+                        <td>${genre.getValue()}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <h1>Top Description by Date</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td>${t.about}</td>
-                    <td>
-                       ${t.date}
-                    </td>
+                    <th>Description</th>
+                    <th>Date</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <a href = "/voteappV2-1.0-SNAPSHOT/vote" class = "btn-vote">Голосование</a>
-</body>
+            </thead>
+            <tbody>
+                <c:forEach var="t" items="${abouts}">
+                    <tr>
+                        <td>${t.about}</td>
+                        <td>
+                            ${t.date}
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <a href = "/voteappV2-1.0-SNAPSHOT/app/vote" class = "btn-vote">Голосование</a>
+    </body>
 </html>

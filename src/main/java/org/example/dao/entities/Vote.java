@@ -1,12 +1,21 @@
 package org.example.dao.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
+@NamedEntityGraph(
+        name = "withGenresAndArtist",
+        attributeNodes = {
+                @NamedAttributeNode("genres"),
+                @NamedAttributeNode("artist")
+        }
+)
 @Entity
 @Table(name = "votes")
 public class Vote implements Serializable {
@@ -26,7 +35,7 @@ public class Vote implements Serializable {
             joinColumns = @JoinColumn(name = "id_vote"),
             inverseJoinColumns = @JoinColumn(name = "id_genre"))
     private Set<Genre> genres = new HashSet<>();
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "votes_artists",
             joinColumns = @JoinColumn(name = "id_vote"),
             inverseJoinColumns = @JoinColumn(name = "id_artist"))

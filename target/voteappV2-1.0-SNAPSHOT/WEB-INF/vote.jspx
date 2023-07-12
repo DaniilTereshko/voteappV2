@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Голосование</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/style.css"/>
     </head>
     <body>
         <h1>Голосование</h1>
@@ -26,7 +26,7 @@
 
             <input type="submit" value="Голосовать"/>
         </form>
-        <a href="/voteappV2-1.0-SNAPSHOT/result" class="btn-result">Результаты</a>
+        <a href="/voteappV2-1.0-SNAPSHOT/app/result" class="btn-result">Результаты</a>
     </body>
 </html>
 

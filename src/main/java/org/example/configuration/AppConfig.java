@@ -1,6 +1,10 @@
 package org.example.configuration;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.example.controllers.web.servlets.ArtistController;
+import org.example.controllers.web.servlets.GenreController;
+import org.example.controllers.web.servlets.VoteController;
+import org.example.controllers.web.servlets.VoteResultsController;
 import org.example.dao.repositories.IArtistRepository;
 import org.example.dao.repositories.IGenreRepository;
 import org.example.dao.repositories.IVoteRepository;
@@ -19,10 +23,21 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableJpaRepositories("org.example.dao.repositories")
+@EnableWebMvc
 public class AppConfig {
+    @Bean
+    public ViewResolver internalResourceViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/");
+        resolver.setSuffix(".jspx");
+        return resolver;
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -56,5 +71,21 @@ public class AppConfig {
     @Bean
     public IVoteStatisticService voteStatisticService(IVoteService voteService, IGenreService genreService, IArtistService artistService){
         return new VoteStatisticService(voteService, genreService, artistService);
+    }
+    @Bean
+    public ArtistController artistController(IArtistService artistService){
+        return new ArtistController(artistService);
+    }
+    @Bean
+    public GenreController genreController(IGenreService genreService){
+        return new GenreController(genreService);
+    }
+    @Bean
+    public VoteController voteController(IArtistService artistService, IGenreService genreService, IVoteService voteService){
+        return new VoteController(artistService, genreService, voteService);
+    }
+    @Bean
+    public VoteResultsController voteResultsController(IVoteStatisticService voteStatisticService){
+        return new VoteResultsController(voteStatisticService);
     }
 }
