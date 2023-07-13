@@ -29,7 +29,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableJpaRepositories("org.example.dao.repositories")
-@EnableWebMvc
+/*@EnableWebMvc*/
 public class AppConfig {
     @Bean
     public ViewResolver internalResourceViewResolver(){
@@ -72,7 +72,7 @@ public class AppConfig {
     public IVoteStatisticService voteStatisticService(IVoteService voteService, IGenreService genreService, IArtistService artistService){
         return new VoteStatisticService(voteService, genreService, artistService);
     }
-    @Bean
+  /*  @Bean
     public ArtistController artistController(IArtistService artistService){
         return new ArtistController(artistService);
     }
@@ -87,5 +87,5 @@ public class AppConfig {
     @Bean
     public VoteResultsController voteResultsController(IVoteStatisticService voteStatisticService){
         return new VoteResultsController(voteStatisticService);
-    }
+    }*/
 }
