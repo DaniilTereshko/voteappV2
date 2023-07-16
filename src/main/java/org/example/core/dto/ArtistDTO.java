@@ -1,6 +1,6 @@
 package org.example.core.dto;
 
-public class ArtistDTO {
+public class ArtistDTO implements IDTO{
     private Long id;
     private String name;
 

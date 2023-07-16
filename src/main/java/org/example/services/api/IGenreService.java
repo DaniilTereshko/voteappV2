@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public interface IGenreService extends ICRUDService<GenreDTO, GenreCreateDTO>{
+public interface IGenreService extends ICRUDService<Genre, GenreCreateDTO>{
     Set<Genre> findByIdIn(Collection<Long> id);
 
 }

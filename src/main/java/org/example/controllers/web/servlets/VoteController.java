@@ -1,8 +1,8 @@
 package org.example.controllers.web.servlets;
 
-import org.example.core.dto.ArtistDTO;
-import org.example.core.dto.GenreDTO;
 import org.example.core.dto.VoteCreatorDTO;
+import org.example.dao.entities.Artist;
+import org.example.dao.entities.Genre;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
@@ -29,8 +29,8 @@ public class VoteController {
 
     @GetMapping(path = "/vote")
     public String get(Model model){
-        List<ArtistDTO> artists = artistService.get();
-        List<GenreDTO> genres = genreService.get();
+        List<Artist> artists = artistService.get();
+        List<Genre> genres = genreService.get();
         model.addAttribute("artists", artists);
         model.addAttribute("genres", genres);
         return "vote";

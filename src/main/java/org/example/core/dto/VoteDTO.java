@@ -3,27 +3,27 @@ package org.example.core.dto;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public class VoteDTO {
+public class VoteDTO implements IDTO{
     private long id;
-    private Long artist;
-    private Set<Long> genres;
+    private Long artistId;
+    private Set<Long> genreId;
     private String about;
     private LocalDateTime date;
 
     public VoteDTO() {
     }
 
-    public VoteDTO(long id, Long artist, Set<Long> genres, String about, LocalDateTime date) {
+    public VoteDTO(long id, Long artistId, Set<Long> genreId, String about, LocalDateTime date) {
         this.id = id;
-        this.artist = artist;
-        this.genres = genres;
+        this.artistId = artistId;
+        this.genreId = genreId;
         this.about = about;
         this.date = date;
     }
 
-    public VoteDTO(Long artist, Set<Long> genres, String about, LocalDateTime date) {
-        this.artist = artist;
-        this.genres = genres;
+    public VoteDTO(Long artistId, Set<Long> genreId, String about, LocalDateTime date) {
+        this.artistId = artistId;
+        this.genreId = genreId;
         this.about = about;
         this.date = date;
     }
@@ -32,13 +32,13 @@ public class VoteDTO {
         return id;
     }
 
-    public Long getArtist() {
-        return artist;
+    public Long getArtistId() {
+        return artistId;
     }
 
 
-    public Set<Long> getGenres() {
-        return genres;
+    public Set<Long> getGenreId() {
+        return genreId;
     }
 
 
@@ -54,12 +54,12 @@ public class VoteDTO {
         this.id = id;
     }
 
-    public void setArtist(Long artist) {
-        this.artist = artist;
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 
-    public void setGenres(Set<Long> genres) {
-        this.genres = genres;
+    public void setGenreId(Set<Long> genreId) {
+        this.genreId = genreId;
     }
 
     public void setAbout(String about) {

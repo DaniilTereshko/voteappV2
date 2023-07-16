@@ -1,9 +1,6 @@
 package org.example.dao.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -27,7 +24,7 @@ public class Vote implements Serializable {
     private Long id;
 
     @Column(name = "about")
-    private String text;
+    private String about;
     @Column(name = "date")
     private LocalDateTime date;
     @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -35,7 +32,7 @@ public class Vote implements Serializable {
             joinColumns = @JoinColumn(name = "id_vote"),
             inverseJoinColumns = @JoinColumn(name = "id_genre"))
     private Set<Genre> genres = new HashSet<>();
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "votes_artists",
             joinColumns = @JoinColumn(name = "id_vote"),
             inverseJoinColumns = @JoinColumn(name = "id_artist"))
@@ -44,15 +41,15 @@ public class Vote implements Serializable {
     public Vote() {//TODO из dto в entity на сервисе
     }
 
-    public Vote(Long id, String text, LocalDateTime date) {
+    public Vote(Long id, String about, LocalDateTime date) {
         this.id = id;
-        this.text = text;
+        this.about = about;
         this.date = date;
     }
 
-    public Vote(Long id, String text, LocalDateTime date, Set<Genre> genres, Artist artist) {
+    public Vote(Long id, String about, LocalDateTime date, Set<Genre> genres, Artist artist) {
         this.id = id;
-        this.text = text;
+        this.about = about;
         this.date = date;
         this.genres = genres;
         this.artist = artist;
@@ -66,12 +63,12 @@ public class Vote implements Serializable {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getAbout() {
+        return about;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public LocalDateTime getDate() {
@@ -106,14 +103,14 @@ public class Vote implements Serializable {
         Vote that = (Vote) o;
 
         if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getText() != null ? !getText().equals(that.getText()) : that.getText() != null) return false;
+        if (getAbout() != null ? !getAbout().equals(that.getAbout()) : that.getAbout() != null) return false;
         return getDate() != null ? getDate().equals(that.getDate()) : that.getDate() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getText() != null ? getText().hashCode() : 0);
+        result = 31 * result + (getAbout() != null ? getAbout().hashCode() : 0);
         result = 31 * result + (getDate() != null ? getDate().hashCode() : 0);
         return result;
     }

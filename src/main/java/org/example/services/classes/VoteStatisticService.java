@@ -6,6 +6,7 @@ import org.example.core.dto.ArtistDTO;
 import org.example.core.dto.GenreDTO;
 import org.example.core.dto.StatisticDTO;
 import org.example.core.dto.VoteDTO;
+import org.example.core.mappers.VoteMapperUtil;
 import org.example.services.api.IArtistService;
 import org.example.services.api.IGenreService;
 import org.example.services.api.IVoteService;
@@ -15,11 +16,13 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class VoteStatisticService implements IVoteStatisticService {
-    IVoteService voteService;
-    IGenreService genreService;
-    IArtistService artistService;
+    private final IVoteService voteService;
+    private final IGenreService genreService;
+    private final IArtistService artistService;
+    private final VoteMapperUtil modelMapper;
 
     private final Cache<Object, Map<ArtistDTO, Long>> artistTopCache;
     private final Cache<Object, Map<GenreDTO, Long>> genreTopCache;
@@ -28,10 +31,11 @@ public class VoteStatisticService implements IVoteStatisticService {
     private final Object genreTopCacheKey = new Object();
     private final Object aboutTopCacheKey = new Object();
 
-    public VoteStatisticService(IVoteService voteService, IGenreService genreService, IArtistService artistService) {
+    public VoteStatisticService(IVoteService voteService, IGenreService genreService, IArtistService artistService, VoteMapperUtil modelMapper) {
         this.voteService = voteService;
         this.genreService = genreService;
         this.artistService = artistService;
+        this.modelMapper = modelMapper;
 
         artistTopCache = Caffeine.newBuilder()
                 .expireAfterAccess(1, TimeUnit.SECONDS)
@@ -63,13 +67,14 @@ public class VoteStatisticService implements IVoteStatisticService {
             return genreTop;
         }
 
-        List<VoteDTO> voteDTOList = voteService.get();
+        List<VoteDTO> voteDTOList = modelMapper.toDtoList(voteService.get(), VoteDTO.class);
+
         genreTop = voteDTOList.stream()
-                .flatMap(v -> v.getGenres().stream())
+                .flatMap(v -> v.getGenreId().stream())
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toMap(entity->genreService.get(entity.getKey()), Map.Entry::getValue, (e1,e2) ->e1, LinkedHashMap::new));
+                .collect(Collectors.toMap(vote->genreService.get(vote.getKey()), Map.Entry::getValue, (e1,e2) ->e1, LinkedHashMap::new));
 
         synchronized (Caffeine.class) {
             genreTopCache.put(genreTopCacheKey, genreTop);
@@ -86,10 +91,10 @@ public class VoteStatisticService implements IVoteStatisticService {
             return artistTop;
         }
 
-        List<VoteDTO> voteDTOList = voteService.get();
+        List<VoteDTO> voteDTOList = modelMapper.toDtoList(voteService.get(), VoteDTO.class);
 
         artistTop = voteDTOList.stream()
-                .map(VoteDTO::getArtist)
+                .map(VoteDTO::getArtistId)
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
@@ -108,7 +113,7 @@ public class VoteStatisticService implements IVoteStatisticService {
         if(aboutTop != null){
             return aboutTop;
         }
-        List<VoteDTO> voteDTOList = voteService.get();
+        List<VoteDTO> voteDTOList = modelMapper.toDtoList(voteService.get(), VoteDTO.class);
         voteDTOList.sort(Comparator.comparing(VoteDTO::getDate));
         synchronized (Caffeine.class) {
             aboutTopCache.put(aboutTopCacheKey, voteDTOList);

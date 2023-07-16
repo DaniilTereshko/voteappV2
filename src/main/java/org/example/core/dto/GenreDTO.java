@@ -1,6 +1,6 @@
 package org.example.core.dto;
 
-public class GenreDTO {
+public class GenreDTO implements IDTO{
     private Long id;
     private String name;
 

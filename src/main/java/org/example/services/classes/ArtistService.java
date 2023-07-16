@@ -1,50 +1,35 @@
 package org.example.services.classes;
 
 import org.example.core.dto.ArtistCreateDTO;
-import org.example.core.dto.ArtistDTO;
-import org.example.dao.repositories.IArtistRepository;
+import org.example.core.mappers.VoteMapperUtil;
 import org.example.dao.entities.Artist;
+import org.example.dao.repositories.IArtistRepository;
 import org.example.services.api.IArtistService;
+import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistService implements IArtistService {
     private final IArtistRepository artistDao;
+    private final ModelMapper modelMapper;
 
-    public ArtistService(IArtistRepository artistDao) {
+    public ArtistService(IArtistRepository artistDao, ModelMapper modelMapper) {
         this.artistDao = artistDao;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<ArtistDTO> get() {
-        List<Artist> artistEntities = artistDao.findAll();
-        List<ArtistDTO> artists = new ArrayList<>();
-        for(Artist a:artistEntities){
-            artists.add(entityToDto(a));
-        }
-        return artists;
+    public List<Artist> get() {
+        return artistDao.findAll();
     }
 
     @Override
-    public ArtistDTO get(long id) {
-        Artist artist = artistDao.findById(id).get();
-        return entityToDto(artist);
+    public Artist get(long id) {
+        return artistDao.findById(id).get();
     }
 
     @Override
-    public ArtistDTO save(ArtistCreateDTO item) {
-        ArtistDTO artistDTO = new ArtistDTO();
-        artistDTO.setName(item.getName());
-        Artist artist = dtoToEntity(artistDTO);
-
-        Artist savedEntity = artistDao.save(artist);
-        return entityToDto(savedEntity);
-    }
-    private Artist dtoToEntity(ArtistDTO artistDTO){
-        return new Artist(artistDTO.getId(), artistDTO.getName());
-    }
-    private ArtistDTO entityToDto(Artist artist) {
-        return new ArtistDTO(artist.getId(), artist.getName());
+    public Artist save(ArtistCreateDTO item) {
+        return artistDao.save(modelMapper.map(item, Artist.class));
     }
 }
